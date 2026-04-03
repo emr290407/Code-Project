@@ -1,0 +1,59 @@
+# Initialize total charge
+total_charge = 0.0
+
+# Display Menu
+print("-" * 60)
+print(f"{'Item Number':<12} {'Dish':<15} {'Small(S)':<10} {'Medium(M)':<10} {'Large(L)':<10}")
+print("-" * 60)
+print("1            Ikan Tenggiri   10.00      20.00      30.00")
+print("2            Ikan Pari        8.00      15.00      25.00")
+print("3            Ikan Jenahak     9.00      17.00      28.00")
+print("4            Daging          10.00      20.00      30.00")
+print("-" * 60 + "\n")
+
+# Define price data using a dictionary for cleaner logic
+# format: {item_number: {'S': price, 'M': price, 'L': price}}
+prices = {
+    1: {'S': 10.00, 'M': 20.00, 'L': 30.00},
+    2: {'S': 8.00,  'M': 15.00, 'L': 25.00},
+    3: {'S': 9.00,  'M': 17.00, 'L': 28.00},
+    4: {'S': 10.00, 'M': 20.00, 'L': 30.00}
+}
+
+while True:
+    try:
+        # 1. Get Item Number
+        item_num = int(input("Enter item number (0 to end) : "))
+        
+        # Check if user wants to quit
+        if item_num == 0:
+            break
+            
+        if item_num not in prices:
+            print("Invalid item number. Please try again.")
+            continue
+
+        # 2. Get Dish Size
+        size = input("Enter dish size (S/M/L)      : ").upper()
+        if size not in ['S', 'M', 'L']:
+            print("Invalid size. Please enter S, M, or L.")
+            continue
+
+        # 3. Get Quantity
+        quantity = int(input("Enter dish quantity          : "))
+
+        # 4. Calculations
+        unit_price = prices[item_num][size]
+        dish_charge = unit_price * quantity
+        total_charge += dish_charge
+
+        # 5. Display individual item results
+        print(f"Price per dish size          : RM{unit_price:.2f}")
+        print(f"Dish Charge                  : RM{dish_charge:.2f}\n")
+
+    except ValueError:
+        print("Invalid input. Please enter numbers for item and quantity.")
+
+# Final Output
+print("-" * 30)
+print(f"Total charge for customer    : RM{total_charge:.2f}")
